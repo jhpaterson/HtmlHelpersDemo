@@ -1,0 +1,51 @@
+﻿@using HtmlHelpersDemo.Helpers
+@using HtmlHelpersDemo.Models
+@model Product
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>@ViewBag.Message</h2>
+<h3>Untyped input helpers</h3>
+<div>
+    @Html.TextBox("ProductName")
+    @Html.TextBox("Description")
+</div>
+
+<h3>Strongly typed input helpers</h3>
+<div>
+    @Html.TextBoxFor(x=>x.ProductName)
+</div>
+
+<h3>Custom helper</h3>
+<div>@Html.RedLabel("firstName", "First Name:")</div>
+
+<h3>Templated delegates</h3>
+@*see http://haacked.com/archive/2011/02/27/templated-razor-delegates.aspx*@
+@{
+  var items = new[] { "one", "two", "three" };
+}
+<ul>
+@items.List(@<li>@item</li>)
+</ul>
+
+
+@{
+    var products = new[] { 
+        new Product {ProductID=1, ProductName="Gadget", Description="Nice", Price=6.99M},
+        new Product {ProductID=2, ProductName="Wotsit", Description="Cheesy", Price=9.99M},
+        new Product {ProductID=3, ProductName="Mop", Description="Wet", Price=12.99M}
+    };
+}
+<table>
+@products.List(
+  @<tr>
+    <td>@item.ProductID</td>
+    <td>@item.ProductName</td>
+    <td>@item.Description</td>
+    <td>@item.Price</td>
+  </tr>)
+</table>
+
+

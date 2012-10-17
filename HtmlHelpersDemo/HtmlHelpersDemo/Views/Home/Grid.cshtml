@@ -1,0 +1,21 @@
+﻿@model IEnumerable<HtmlHelpersDemo.Models.Product>
+
+@{
+    ViewBag.Title = "Grid";
+    var grid = new WebGrid(
+        source: Model,
+        rowsPerPage: 2);
+}
+
+<h2>Grid</h2>
+@grid.GetHtml(
+    tableStyle: "grid",
+    headerStyle: "header",
+    rowStyle: "row",
+    footerStyle: "footer",
+    alternatingRowStyle: "altRow",
+    columns: grid.Columns(
+        grid.Column("ProductName", "Name", style: "textCol"),
+        grid.Column("Price", style: "numberCol",
+        format: @<text>£@string.Format("{0:F2}", item.Price)</text>)
+))
